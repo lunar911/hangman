@@ -13,19 +13,31 @@ def clear_console():
         print("\033c", end="")
 
 
+def is_one_single_character(character):
+    return character.isalpha() and len(character) == 1
+
+
+def only_characters_in_input(player_input):
+    return player_input.isalpha()
+
+
 def ask_player_for_secret_word():
     print("Please input secret passphrase:", end="")
     secret_passphrase = input().lower()
-    return secret_passphrase
+    if only_characters_in_input(secret_passphrase):
+        return secret_passphrase
+    else:
+        print("Input must consist only of letters.")
+        return ask_player_for_secret_word()
 
 
 def ask_player_for_guess():
     print("Please guess: ", end='')
-    guess = input().lower()
-    if guess.isalpha() and len(guess) == 1:
-        return guess
+    character = input().lower()
+    if is_one_single_character(character):
+        return character
     else:
-        print("Input must be a single character. Please retry.", end="")
+        print("Input must be a single character. Please retry.")
         return ask_player_for_guess()
 
 
