@@ -51,6 +51,16 @@ def has_player_won(already_guessed, secret):
     return ret
 
 
+def draw_game(letters_already_guessed, secret):
+    clear_console()
+    for letter in secret:
+        if letter in letters_already_guessed:
+            print(letter, end="")
+        else:
+            print("*", end="")
+    print("\nAlready guessed: " + str(letters_already_guessed))
+
+
 def hangman_game():
     secret = ask_player_for_secret_word()
     letters_already_guessed = []
@@ -60,11 +70,7 @@ def hangman_game():
         player_guess = ask_player_for_guess()
         letters_already_guessed.append(player_guess)
 
-        for letter in secret:
-            if letter in letters_already_guessed:
-                print(letter, end="")
-            else:
-                print("*", end="")
+        draw_game(letters_already_guessed, secret)
         print("\n")
 
     print("Game finished.")
